@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ personne.nom }} - CV</title>
+    <link rel="stylesheet" href="{% static 'cv.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Section Header -->
+        <div class="header">
+        {% if personne.photo %}
+        <img src="{{ personne.photo.url }}" alt="Photo de {{ personne.nom }}">
+        {% else %}
+        <p>Aucune photo disponible</p>
+        {% endif %}
+        
+            <h1>{{ personne.nom }}</h1>
+            <p>{{ personne.job_title }}</p>
+            <p><strong>Email :</strong> {{ personne.email }}</p>
+            <p><strong>Téléphone :</strong> {{ personne.telephone }}</p>
+        </div>
+
+        <!-- Section À propos -->
+        <div class="about">
+            <h2>À propos de moi</h2>
+            <p>{{ personne.description }}</p>
+        </div>
+
+        <!-- Section Formations -->
+        <div class="formations">
+            <h2>Formations</h2>
+            {% for formation in formations %}
+            <div class="formation">
+                <h3>{{ formation.diplome }} - {{ formation.institution }}</h3>
+                <p>{{ formation.start_date }} - {{ formation.end_date }}</p>
+                <p>{{ formation.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Section Expériences -->
+        <div class="experiences">
+            <h2>Expériences</h2>
+            {% for experience in experiences %}
+            <div class="experience">
+                <h3>{{ experience.job_title }} - {{ experience.company_name }}</h3>
+                <p>{{ experience.start_date }} - {% if experience.end_date %}{{ experience.end_date }}{% else %}Présent{% endif %}</p>
+                <p>{{ experience.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Section Compétences -->
+        <div class="competences">
+            <h2>Compétences</h2>
+            <ul>
+                {% for competence in competences %}
+                <li>{{ competence.skill_name }} ({{ competence.level }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

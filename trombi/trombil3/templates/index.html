@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trombinoscope</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+   <h1>Trombinoscope</h1>
+   <div class="container">
+       {% for personne in personnes %}
+       <div class="bloc">
+           {% if personne.photo %}
+           <img src="{{ personne.photo.url }}" alt="Photo de {{ personne.nom }}">
+           {% else %}
+           <h3>Pas d'image</h3>
+           {% endif %}
+
+           <div><strong>Nom:</strong> {{ personne.nom }}</div>
+           <div><strong>Prénom:</strong> {{ personne.prenom }}</div>
+           <div><strong>Numéro:</strong> {{ personne.telephone }}</div>
+           <div><strong>Mail:</strong> {{ personne.mail }}</div>
+           <a href="{% url 'detail'  %}">Plus</a>
+       </div>
+       {% endfor %}
+   </div>
+</body>
+</html>
